@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function actualizarClima() {
-  fetch("http://localhost:8000/getmediciones")
+  fetch("http://zeritop.zapto.org:8000/getmediciones")
     .then(response => {
       if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
       return response.json();
