@@ -1,1 +1,76 @@
-<h1>skyreport</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clima App</title>
+
+  <!-- Tu hoja de estilos -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Chart.js (gráficas) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Leaflet (mapa) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    /* tamaño del mapa dentro del contenedor */
+    #map { height: 400px; width: 100%; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="sky-report">SKY REPORT</div>
+  <div class="navbar">
+    <button onclick="mostrarSeccion('clima')">🌤️ Clima Actual</button>
+    <button onclick="mostrarSeccion('recomendaciones')">📝 Recomendaciones</button>
+  </div>
+
+  <div class="container">
+    <!-- Sección de Clima -->
+    <section id="clima" class="seccion">
+      <h1> Datos Actuales:</h1>
+      <h2 id="ciudad">Cabo San Lucas</h2>
+      <p><strong>Temperatura:</strong> <span id="temperatura">--</span></p>
+      <p><strong>Humedad:</strong> <span id="humedad">--</span></p>
+      <p><strong>Presión:</strong> <span id="presion">--</span></p>
+      <p><strong>Velocidad del viento:</strong> <span id="velocidad-viento">--</span></p>
+      <div id="fuente-datos">Datos desde sensor</div>
+      <button onclick="actualizarClima()">Actualizar</button>
+      <select id="num-datos" onchange="actualizarClima()">
+  <option value="5">Últimos 5 datos</option>
+  <option value="10">Últimos 10 datos</option>
+  <option value="15">Últimos 15 datos</option>
+  <option value="20" selected>Últimos 20 datos</option>
+</select>
+
+      <div class="graficas-container">
+        <div class="grafica-item">
+          <h2>Gráfica de Temperatura y Humedad</h2>
+          <canvas id="graficaTempHum"></canvas>
+        </div>
+        <div class="grafica-item">
+          <h2>Gráfica de Viento y Presión</h2>
+          <canvas id="graficaVientoPresion"></canvas>
+        </div>
+      </div>
+
+      <!-- 🔥 NUEVO: mapa meteorológico -->
+      <h2> Mapita meteorológico </h2>
+      <div id="map"></div>
+    </section>
+
+    <!-- Sección de Recomendaciones -->
+    <section id="recomendaciones" class="seccion oculta">
+      <h1>📝 Recomendaciones</h1>
+      <ul id="lista-recomendaciones">
+        <li>Actualiza para ver sugerencias según el clima.</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Tu lógica principal -->
+  <script src="script.js"></script>
+</body>
+</html>

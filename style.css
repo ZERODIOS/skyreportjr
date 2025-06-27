@@ -1,0 +1,429 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Exo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #0a1a2f 0%, #1e3a8a 100%);
+  color: #e0e7ff;
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Fondo de partículas animadas más sutil */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="20" cy="20" r="1" fill="rgba(59,130,246,0.2)"%3E%3Canimate attributeName="cx" values="20;80;20" dur="15s" repeatCount="indefinite"/%3E%3Canimate attributeName="cy" values="20;80;20" dur="20s" repeatCount="indefinite"/%3E%3C/circle%3E%3Ccircle cx="70" cy="70" r="0.8" fill="rgba(165,180,252,0.15)"%3E%3Canimate attributeName="cx" values="70;120;70" dur="18s" repeatCount="indefinite"/%3E%3Canimate attributeName="cy" values="70;90;70" dur="12s" repeatCount="indefinite"/%3E%3C/circle%3E%3C/svg%3E');
+  opacity: 0.2;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Importar fuentes para SKY REPORT */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Exo:wght@400;600;700&display=swap');
+
+/* SKY REPORT Logo */
+.sky-report {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(15px, 15px);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  background: linear-gradient(45deg, #3b82f6, #a5b4fc, #f9a8d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.8), 0 0 20px rgba(165, 180, 252, 0.6);
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  animation: neonPulse 2s infinite ease-in-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 10000;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.sky-report:hover {
+  transform: translate(15px, 15px) scale(1.05) rotate(2deg);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.7);
+  text-shadow: 0 0 15px rgba(59, 130, 246, 1), 0 0 30px rgba(165, 180, 252, 1);
+}
+
+@keyframes neonPulse {
+  0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(59, 130, 246, 0.8), 0 0 20px rgba(165, 180, 252, 0.6); }
+  50% { opacity: 0.9; text-shadow: 0 0 15px rgba(59, 130, 246, 1), 0 0 30px rgba(165, 180, 252, 0.8); }
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  background: rgba(17, 24, 39, 0.9);
+  padding: 15px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  margin: 20px auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  z-index: 900;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  max-width: 600px;
+}
+
+.navbar button {
+  background: #3b82f6;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.navbar button:hover {
+  background: #60a5fa;
+}
+
+/* Main container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+/* Sections */
+.seccion {
+  display: none;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  z-index: 2;
+}
+
+.seccion.oculta {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+.seccion:not(.oculta) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Clima section */
+#clima {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+  background: rgba(17, 24, 39, 0.9);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#clima h1, #clima h2 {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #dbeafe;
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+/* Data cards */
+#clima p {
+  background: rgba(31, 41, 55, 0.85);
+  padding: 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 10px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+#clima p > span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+/* Fuente datos */
+#fuente-datos {
+  grid-column: 1 / -1;
+  text-align: right;
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+/* Update button */
+button {
+  grid-column: 1 / -1;
+  justify-self: center;
+  background: #3b82f6;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #60a5fa;
+}
+
+/* Charts container */
+.graficas-container {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+  padding: 0;
+  width: 100%;
+}
+
+.grafica-item {
+  background: rgba(17, 24, 39, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.grafica-item h2 {
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+  color: #dbeafe;
+}
+
+.grafica-item canvas {
+  width: 100% !important;
+  height: 300px !important;
+  border-radius: 8px;
+  pointer-events: auto;
+  transition: box-shadow 0.3s ease;
+}
+
+.grafica-item canvas:hover {
+  box-shadow: 0 0 15px #3b82f6, 0 0 30px #60a5fa, 0 0 45px #f9a8d4;
+  animation: ledGlow 1.5s infinite alternate;
+}
+
+@keyframes ledGlow {
+  0% { box-shadow: 0 0 15px #3b82f6; }
+  50% { box-shadow: 0 0 30px #60a5fa; }
+  100% { box-shadow: 0 0 45px #f9a8d4; }
+}
+
+/* Map */
+#map {
+  grid-column: 1 / -1;
+  height: 350px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Recomendaciones section */
+#recomendaciones {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: rgba(31, 41, 55, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  width: 100%;
+}
+
+#recomendaciones h1 {
+  text-align: center;
+  color: #dbeafe;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+#lista-recomendaciones {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+#lista-recomendaciones li {
+  background: rgba(31, 41, 55, 0.85);
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .seccion {
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+  }
+
+  #clima {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .graficas-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .grafica-item canvas {
+    height: 250px !important;
+  }
+
+  #map {
+    height: 300px;
+  }
+
+  .navbar {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  .navbar button {
+    padding: 8px 15px;
+  }
+
+  .sky-report {
+    font-size: 1.5rem;
+    padding: 6px 12px;
+    transform: translate(10px, 10px);
+  }
+
+  #clima p {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .sky-report {
+    font-size: 1.2rem;
+    padding: 4px 8px;
+    transform: translate(8px, 8px);
+  }
+
+  .grafica-item canvas {
+    height: 200px !important;
+  }
+
+  #map {
+    height: 250px;
+  }
+
+  .navbar button {
+    padding: 6px 10px;
+  }
+
+  #clima p {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+}
+
+/* Combo box for selecting number of data points */
+#num-datos {
+  grid-column: 1 / -1;
+  justify-self: center;
+  background: rgba(17, 24, 39, 0.9);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  font-family: 'Exo', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+#num-datos:hover {
+  background: rgba(31, 41, 55, 0.9);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.5);
+}
+
+#num-datos option {
+  background: rgba(17, 24, 39, 1);
+  color: white;
+}
+
+/* Responsive adjustments for combo box */
+@media (max-width: 768px) {
+  #num-datos {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #num-datos {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+}
