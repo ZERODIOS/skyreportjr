@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function actualizarClima() {
-  fetch(" https://few-mice-applying-incident.trycloudflare.com /getmediciones")
+  fetch("https://few-mice-applying-incident.trycloudflare.com/getmediciones")
     .then(response => {
       if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
       return response.json();
